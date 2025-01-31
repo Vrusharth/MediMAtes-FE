@@ -1,18 +1,21 @@
-import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native'
+import {  StyleSheet, View } from 'react-native'
 import React, { useEffect } from 'react'
 import LottieView from 'lottie-react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Status from '../components/Status';
+import { getItem } from '../utils/asyncstorage';
 
 export default function Splash({ navigation }) {
-//   useEffect(() => {
-//     setTimeout(async () => {
-//       await AsyncStorage.getItem('userInfo') ? navigation.navigate('DrawerNavigator') :
-//         navigation.navigate('GetStarted')
-//     }, 4000);
-//   }, [])
+  useEffect(() => {
+    setTimeout(async () => {
+      const userToken = await getItem('user');
+      navigation.navigate('GetStarted')
+    }, 4000);
+  }, [])
+
 
   return (
     <View style={styles.container}>
+      <Status />
       <LottieView
         source={require('../assets/lottie/Splash.json')}
         autoPlay

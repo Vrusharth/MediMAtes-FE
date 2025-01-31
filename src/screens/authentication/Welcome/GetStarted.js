@@ -1,74 +1,78 @@
-import { StyleSheet, Text, View, StatusBar, useColorScheme, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { colorTheme } from '../../../constant';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { colorTheme, common_styles } from '../../../constant';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import FullCarousel from '../../../components/Carousel/FullCarousel';
+import BigButton from '../../../components/Inputs/BigButton';
+import { GetStartedCarouselData } from '../../../assets/Data/AuthData';
+import Status from '../../../components/Status';
 
 export default function GetStarted() {
-
-    const colorScheme = useColorScheme();
-    const styles = colorScheme === 'dark' ? darkStyles : lightStyles;
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
     const SampleComponent = ({ index, data }) => (
-        <View style={{ flex: 1,  alignItems: 'center',paddingVertical:30,justifyContent:'space-between' }}>
+        <View style={{ flex: 1, alignItems: 'center', paddingVertical: 30, justifyContent: 'space-between', paddingInline: 30 }}>
             <LottieView
-                source={require('../../../assets/lottie/getStartedAi.json')}
+                source={data.lottie}
                 autoPlay
                 loop
                 style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 0 }}
             />
-            <Text>hello</Text>
-            <Text>sjjsjsj</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, alignSelf: 'flex-start', }}>
+                <View style={{ width: 15, height: 15, backgroundColor: colorTheme.primaryColor, borderRadius: '50%' }} />
+                <Text style={[common_styles.extra_large_text_normal_weight, { fontSize: 30 }]}>MediMate</Text>
+                <View style={{ width: 15, height: 15, backgroundColor: colorTheme.primaryColor, borderRadius: '50%' }} />
+            </View>
+            <View style={{ width: '100%', marginBlock: 20, }}>
+                <Text style={[common_styles.extra_large_text_normal_weight]}>{data.title}</Text>
+            </View>
         </View>
     );
 
-    const data = [
-        { title: 'First Item' },
-        { title: 'Second Item' },
-        { title: 'Third Item' },
-    ];
-
     return (
         <View style={styles.container}>
-            <StatusBar
-                barStyle={colorScheme === 'light' ? 'light-content' : 'light-content'}
-                backgroundColor="transparent"
-                translucent={true}
-            />
-            <View style={{ flex: 1, }}>
+            <Status />
+            <View style={{ flex: 1 }}>
                 <FullCarousel
                     Component={SampleComponent}
-                    data={data}
+                    data={GetStartedCarouselData}
                     autoPlay={false}
                     fastInterval={1500}
                     loop={true}
                     componentWidth={0}
                     dynamicHeight={1.5}
-                    style={{  flex: 1 }}
+                    style={{ flex: 1 }}
                     onSnapToItem={(index) => console.log('Snapped to item:', index)}
                 />
             </View>
-            <View style={{ flex: 0.4, }}>
-                <View style={{ flex: 1, justifyContent: 'center', gap: 20, backgroundColor: colorTheme.primaryColor }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('SignUpNavigator')} style={[styles.button, { marginHorizontal: 30, backgroundColor: '#FFFFFF' }]}>
-                        <MaterialCommunityIcons name={'email'} color={colorTheme.primaryColor} size={25} />
-                        <Text style={[styles.changeButtonText, { color: 'black', padding: 8 }]}>New User ?  <Text style={{ color: '#000080' }}>Signup</Text></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('LoginNavigator')} style={[styles.button, { backgroundColor: 'white', marginHorizontal: 30 }]}>
-                        <MaterialCommunityIcons name={'login'} color={colorTheme.iconWithBlueBackGround} size={25} />
-                        <Text style={[styles.changeButtonText, { color: 'black' }]}>Existing User ?  <Text style={{}}>Login</Text></Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={{ flex: 0.4, justifyContent: 'center', gap: 20, backgroundColor: colorTheme.primaryColor, paddingHorizontal: 30, }}>
+                <Text style={[common_styles.large_text_normal_weight, { color: 'white' }]}>Let's Get Started! Enter Your Mobile Number or Email</Text>
+               <BigButton 
+                IconCategory={MaterialCommunityIcons}
+                iconName={'email'}
+                label={'Signup with email'}
+                navigateTo={'SignUpNavigator'}
+                style={{padding:5}}
+               />
+                <BigButton 
+                IconCategory={MaterialCommunityIcons}
+                iconName={'login'}
+                label={'Login to your account'}
+                navigateTo={'LoginNavigator'}
+                style={{padding:5}}
+               />
             </View>
         </View>
     );
 }
 
-const baseStyles = {
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colorTheme.lightappBackGroundColor,
+    },
     button: {
         borderRadius: 10,
         flexDirection: 'row',
@@ -81,65 +85,18 @@ const baseStyles = {
         fontSize: 16,
         fontWeight: '500',
     },
-    mainText: {
-        fontFamily: colorTheme.appcommonfont,
-    },
-    subText: {
-        fontFamily: colorTheme.appcommonfont,
-    },
-};
-
-const lightStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colorTheme.lightappBackGroundColor,
-    },
-    backgroundColorHandler: {
-        backgroundColor: colorTheme.lightappBackGroundColor
+    changeButtonText: {
+        color: colorTheme.iconWithBlueBackGround,
+        padding: 10,
+        fontSize: 16,
+        fontWeight: '500',
     },
     mainText: {
-        ...baseStyles.mainText,
+        fontFamily: colorTheme.appcommonfont,
         color: 'black',
     },
     subText: {
-        ...baseStyles.subText,
+        fontFamily: colorTheme.appcommonfont,
         color: 'black',
     },
-    button: {
-        ...baseStyles.button,
-    },
-    buttonText: {
-        ...baseStyles.buttonText,
-    },
-    changeButtonText: {
-        ...baseStyles.buttonText,
-        color: colorTheme.iconWithBlueBackGround
-    }
-});
-
-const darkStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colorTheme.darkappBackGroundColor,
-    },
-    backgroundColorHandler: {
-        backgroundColor: colorTheme.darkappBackGroundColor
-    },
-    mainText: {
-        ...baseStyles.mainText,
-        color: 'white',
-    },
-    subText: {
-        ...baseStyles.subText,
-        color: 'white',
-    },
-    button: {
-        ...baseStyles.button,
-    },
-    buttonText: {
-        ...baseStyles.buttonText,
-    },
-    changeButtonText: {
-        ...baseStyles.buttonText,
-    }
 });

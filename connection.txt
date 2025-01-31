@@ -3,4 +3,4 @@ step-2: adb tcpip 5555
 step-3: adb disconnect
 step-4: adb connect <DEVICE_IP>:5555
 step-5: disconnect usb cable and check adb devices
-step-6: disconnect to the tcp server use adb tcpip 0
+step-6: disconnect to the tcp server use adb disconnect <DEVICE_IP>:5555
