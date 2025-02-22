@@ -45,7 +45,7 @@ export default function LoginWithEmail() {
                         </View>
                         <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={[common_styles.medium_text_normal_weight, { color: colorTheme.primaryColor }]}>Forgot Password?</Text>
-                        </View>
+                        </View> 
                         <View style={{ gap: 10 }}>
                             <BigButton
                                 label={'Continue'}
