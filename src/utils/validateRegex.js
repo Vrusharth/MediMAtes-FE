@@ -17,8 +17,23 @@ export const validateEmail = (email) => {
 };
 
 export const validatePassword = (value) => {
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]|\\:;"'<>,.?/`~\-]).{8,}$/.test(value)) {
-        return 'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.';
+    const errors = [];
+
+    if (value.length < 8) {
+        errors.push("• At least 8 characters long");
     }
-    return '';
+    if (!/[a-z]/.test(value)) {
+        errors.push("• At least one lowercase letter");
+    }
+    if (!/[A-Z]/.test(value)) {
+        errors.push("• At least one uppercase letter");
+    }
+    if (!/\d/.test(value)) {
+        errors.push("• At least one number");
+    }
+    if (!/[!@#$%^&*()_+={}\[\]|\\:;"'<>,.?/`~\-]/.test(value)) {
+        errors.push("• At least one special character");
+    }
+
+    return errors.length > 0 ? errors.join("\n") : "";
 };

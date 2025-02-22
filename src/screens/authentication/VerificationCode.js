@@ -26,9 +26,9 @@ export default function VerificationCode() {
 
     const route = useRoute();
 
-    const { email, password } = route.params;
+    const { email, password, isDoctor } = route.params;
 
-    const { mutate, isPending, isError, error } = useVerifyOtp();
+    const { mutate, isPending, isError, error } = useVerifyOtp(isDoctor);
 
     function handleClick(params) {
         mutate({ email, password, otp: value });
@@ -38,12 +38,11 @@ export default function VerificationCode() {
         <View style={styles.container}>
             <Status />
             <Header />
-            {isError && <FailAlert isError={isError} error={error?.response?.data?.error} />}
+            {isError && <FailAlert isError={isError} error={error?.response?.data?.message} />}
             <ScrollView style={styles.subContainer}>
                 <Text style={[styles.titleText, { marginTop: 20 }]}>Enter verification code</Text>
                 <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={styles.subText}>Enter the verification code sent to</Text>
-                    <Text style={[styles.linkText, { marginLeft: 5 }]}>(7718822353)</Text>
+                    <Text style={styles.subText}>Enter the verification code sent to <Text style={[styles.linkText, { marginLeft: 5 }]}>{email}</Text></Text>
                 </View>
                 <View style={{ marginTop: 30 }}>
                     <CodeField

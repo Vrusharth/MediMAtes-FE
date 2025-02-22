@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { colorTheme, common_styles } from '../../../constant';
 import Header from '../../../components/Header';
@@ -9,16 +9,18 @@ import CheckBox from '../../../components/Inputs/CheckBox';
 import { useSignUp } from '../../../Hooks/auth';
 import FailAlert from '../../../components/Alert/FailAlert';
 import { validateEmail, validatePassword } from '../../../utils/validateRegex';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function NameEmail() {
+export default function SignupWithEmail() {
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
         confirm_password: '',
         term_condition: false
     })
+    const [isDoctor, setisDoctor] = useState(false);
 
-    const { mutate, isPending, isError, error } = useSignUp('VerificationCode',{ email: formValues.email, password: formValues.password });
+    const { mutate, isPending, isError, error } = useSignUp('VerificationCode', { email: formValues.email, password: formValues.password, isDoctor: isDoctor }, isDoctor);
 
     function handleCheckBox() {
         setFormValues((prevValues) => ({
@@ -29,7 +31,7 @@ export default function NameEmail() {
 
     function handleClick(params) {
         const { email, password } = formValues;
-        mutate({ email, password });        
+        mutate({ email, password });
     }
 
     const isDisabled = !formValues.email || !formValues.password || !formValues.confirm_password || !formValues.term_condition || formValues.password !== formValues.confirm_password || validateEmail(formValues.email) !== '' ||
@@ -39,19 +41,31 @@ export default function NameEmail() {
         <View style={styles.container}>
             <Status />
             <Header />
-            {isError && <FailAlert error={error?.response?.data?.error} />}
-            <ScrollView style={styles.subContainer} showsVerticalScrollIndicator={false}>
-                <Text style={[styles.titleText, { marginTop: 20 }]}>Set Credentials</Text>
+            {isError && <FailAlert error={error?.response?.data?.message} />}
+            <ScrollView contentContainerStyle={[styles.subContainer, { paddingBottom: 10 }]} showsVerticalScrollIndicator={false}>
+                <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 10 }]}>
+                    <TouchableOpacity
+                        onPress={() => setisDoctor(false)}
+                        style={[!isDoctor && { backgroundColor: colorTheme.primaryColor }, { paddingInline: 30, paddingBlock: 5, borderRadius: 30 }]}>
+                        <Text style={[common_styles.large_text_large_weight, { color: !isDoctor ? 'white' : 'black' }]}>Patient</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => setisDoctor(true)}
+                        style={[isDoctor && { backgroundColor: colorTheme.primaryColor }, { paddingInline: 30, paddingBlock: 5, borderRadius: 30 }]}>
+                        <Text style={[common_styles.large_text_large_weight, { color: isDoctor ? 'white' : 'black' }]}>Doctor</Text>
+                    </TouchableOpacity>
+                </View>
+                <Text style={[common_styles.extra_large_text_large_weight, { marginTop: 10 }]}>Set Credentials</Text>
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[styles.subText, { marginBottom: 10, }]}>Email</Text>
+                    <Text style={[common_styles.medium_text_normal_weight, { marginBottom: 10, }]}>Email</Text>
                     <NormalTextInputWithIcon placeholder={'example@gmail.com'} validationFunc={validateEmail} setFormValues={setFormValues} value={formValues.email} name={'email'} icon={'email'} />
                 </View>
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[styles.subText, { marginBottom: 10, }]}>Password</Text>
+                    <Text style={[common_styles.medium_text_normal_weight, { marginBottom: 10, }]}>Password</Text>
                     <NormalTextInputWithIcon validationFunc={validatePassword} secureTextEntry={true} setFormValues={setFormValues} value={formValues.password} name={'password'} icon={'lock'} />
                 </View>
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[styles.subText, { marginBottom: 10, }]}>Confirm Password</Text>
+                    <Text style={[common_styles.medium_text_normal_weight, { marginBottom: 10, }]}>Confirm Password</Text>
                     <NormalTextInputWithIcon secureTextEntry={true} setFormValues={setFormValues} value={formValues.confirm_password} name={'confirm_password'} icon={'lock'} />
                 </View>
                 <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
@@ -65,6 +79,25 @@ export default function NameEmail() {
                         disabled={isDisabled}
                         onPress={handleClick}
                         isPending={isPending}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 30, alignItems: 'center', }}>
+                    <View style={styles.divider} />
+                    <Text style={[common_styles.medium_text_normal_weight, { marginHorizontal: 10 }]}>OR</Text>
+                    <View style={styles.divider} />
+                </View>
+                <View style={{ marginTop: 30, gap: 10 }}>
+                    <BigButton
+                        IconCategory={MaterialCommunityIcons}
+                        iconName={'google'}
+                        label={'Continue with Google'}
+                        style={{ backgroundColor: '#f5f5fa' }}
+                    />
+                    <BigButton
+                        IconCategory={MaterialCommunityIcons}
+                        iconName={'facebook'}
+                        label={'Continue with FaceBook'}
+                        style={{ backgroundColor: '#f5f5fa' }}
                     />
                 </View>
             </ScrollView>

@@ -30,7 +30,7 @@ export default function LoginWithEmail() {
         <View style={styles.container}>
             <Status />
             <Header />
-            {isError && <FailAlert isError={isError} error={error?.response?.data?.error} />}
+            {isError && <FailAlert isError={isError} error={error?.response?.data?.message} />}
             <ScrollView style={styles.subContainer} showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, marginTop: 20 }}>
                     <Text style={[common_styles.large_text_large_weight,]}>Login with Email</Text>

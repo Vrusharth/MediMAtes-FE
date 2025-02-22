@@ -9,8 +9,6 @@ import CountryInput from '../../../components/Inputs/CountryInput';
 import Status from '../../../components/Status';
 
 export default function LoginWithOTP() {
-    const colorScheme = useColorScheme();
-
     return (
         <View style={styles.container}>
             <Status />
