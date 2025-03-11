@@ -35,3 +35,10 @@ export const verify_doctor_otp = (email, password, otp) => apiDoctor.post(`/veri
     password: password,
     otp: otp
 });
+
+export const doctor_additional_info = (form, token) => apiDoctor.post(`/saveadditionalinfo`, form, {
+    headers: {
+        'Content-Type': 'multipart/form-data', // This is required to send form data with files
+        'auth-token': token
+    },
+});

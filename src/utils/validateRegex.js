@@ -16,6 +16,13 @@ export const validateEmail = (email) => {
     return '';
 };
 
+export const validateEmtyInput = (str) => {
+    if (!/^\s*$/.test(str)) {
+        return '';
+    }
+    return 'Field cannot be empty.';
+};
+
 export const validatePassword = (value) => {
     const errors = [];
 

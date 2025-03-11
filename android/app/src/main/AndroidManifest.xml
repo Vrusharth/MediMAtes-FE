@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+<meta-data
+    android:name="com.google.android.gms.auth.api.credentials.ClientId"
+    android:value="296168161876-p3g6srr6p09usgtijpueg8ch3rlj15qo.apps.googleusercontent.com" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

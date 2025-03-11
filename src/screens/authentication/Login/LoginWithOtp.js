@@ -3,7 +3,7 @@ import React from 'react'
 import { colorTheme, common_styles } from '../../../constant';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Header from '../../../components/Header';
-import BigButton from '../../../components/Inputs/BigButton';
+import BigButton from '../../../components/Buttons/BigButton';
 import { countriesDropDownData } from '../../../assets/Data/DropDownData';
 import CountryInput from '../../../components/Inputs/CountryInput';
 import Status from '../../../components/Status';

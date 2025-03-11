@@ -30,12 +30,12 @@ export default function FailAlert({ error }) {
                     borderRadius: 10,
                     gap: 10
                 }}>
-                    <View style={{ width: 10, height: 70, backgroundColor: 'red', borderTopStartRadius: 10, borderBottomStartRadius: 10 }} />
+                    <View style={{ width: 10, height: 70, backgroundColor: 'red', borderTopStartRadius: 10, borderBottomStartRadius: 10, }} />
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, borderRightWidth: 1 }}>
                         <MaterialCommunityIcons name={'close-circle-outline'} color={'red'} size={35} />
                         <View style={{}}>
                             <Text style={[common_styles.extra_large_text_normal_weight]}>Error</Text>
-                            <Text style={[common_styles.small_text_normal_weight, { color: 'gray' }]}>{error}</Text>
+                            <Text style={[common_styles.small_text_normal_weight, { color: 'gray',width:'90%' }]}>{error}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 0.2 }}>

@@ -5,7 +5,7 @@ import Header from '../../../components/Header';
 import NormalTextInputWithIcon from '../../../components/Inputs/NormalTextInputWithIcon';
 import Status from '../../../components/Status';
 import { colorTheme, common_styles } from '../../../constant';
-import BigButton from '../../../components/Inputs/BigButton';
+import BigButton from '../../../components/Buttons/BigButton';
 import { navigate } from '../../../utils/navRef';
 import { validateEmail, validatePassword } from '../../../utils/validateRegex';
 import { useLogin } from '../../../Hooks/auth';
