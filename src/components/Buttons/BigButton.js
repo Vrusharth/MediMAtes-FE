@@ -4,7 +4,7 @@ import { colorTheme, common_styles } from '../../constant';
 import { useNavigation } from '@react-navigation/native';
 
 // BigButton component
-const BigButton = ({ onPress, IconCategory, iconName, label, style, navigateTo, labelStyle, disabled, isPending }) => {
+const BigButton = ({ onPress, IconCategory, iconName, label, style, navigateTo, labelStyle, disabled, isPending, iconColor,iconSize }) => {
 
   const navigation = useNavigation();
 
@@ -23,7 +23,7 @@ const BigButton = ({ onPress, IconCategory, iconName, label, style, navigateTo, 
     <TouchableOpacity onPress={handleClick} style={[styles.button, style, disabled ? { backgroundColor: 'gray' } : null]}>
       {IconCategory &&
         <View style={styles.iconContainer}>
-          <IconCategory name={iconName} color={colorTheme.iconWithBlueBackGround} size={30} />
+          <IconCategory name={iconName} color={iconColor || colorTheme.accentColor} size={iconSize || 30} />
         </View>
       }
       <Text style={[common_styles.medium_text_normal_weight, labelStyle]}>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 10,
     borderRadius: 8,
-    width: '100%', // Adjust as needed for full-width button
+    // width: '100%', // Adjust as needed for full-width button
     justifyContent: 'center',
   },
   iconContainer: {

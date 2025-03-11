@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-nati
 import React, { useState } from 'react';
 import { colorTheme, common_styles } from '../../../constant';
 import Header from '../../../components/Header';
-import BigButton from '../../../components/Inputs/BigButton';
+import BigButton from '../../../components/Buttons/BigButton';
 import NormalTextInputWithIcon from '../../../components/Inputs/NormalTextInputWithIcon';
 import Status from '../../../components/Status';
 import CheckBox from '../../../components/Inputs/CheckBox';

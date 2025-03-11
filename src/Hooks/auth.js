@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { create_doctor, create_user, login, verify_doctor_otp, verify_user_otp } from "../services/auth";
+import { create_doctor, create_user, doctor_additional_info, login, verify_doctor_otp, verify_user_otp } from "../services/auth";
 import { useUser } from "../Context/UserContext";
-import { setItem } from "../utils/asyncstorage";
+import { getItem, setItem } from "../utils/asyncstorage";
 import { navigate } from "../utils/navRef";
 
 export const useSignUp = (navigateTo, propsToScreen, isDoctor) => {
@@ -27,14 +27,17 @@ export const useLogin = () => {
             return login(email, password)
         },
         onSuccess: async (res) => {
-            setUser(res.data.jwtdata);
-            await setItem("user", res.data.jwtdata);
-            navigate('Success');
+            const token = res.data.jwtdata;
+            const role = res.data.role;
+            setUser(token);
+            await setItem("user", token);
+            await setItem("role", token);
+            navigate("Success", { role: role })
         },
     })
 }
 
-export const useVerifyOtp = (isDoctor ) => {
+export const useVerifyOtp = (isDoctor) => {
     const { setUser } = useUser();
     return useMutation({
         mutationFn: ({ email, password, otp }) => {
@@ -43,7 +46,27 @@ export const useVerifyOtp = (isDoctor ) => {
         onSuccess: async (res) => {
             setUser(res.data.jwtdata);
             await setItem("user", res.data.jwtdata);
-            navigate('Success');
+            await setItem("role", res.data.role);
+            res.data.role === 'patient' ? navigate('CompletePatientProfile') : navigate('CompleteDoctorProfile');
+        },
+        onError: async (err) => {
+            console.log("Error: ", err.response.data);
+        }
+    })
+}
+
+export const useDoctorAdditionalInfo = () => {
+    return useMutation({
+        mutationFn: async ({ form }) => {
+            const token = await getItem("user");
+            return doctor_additional_info(form, token);
+        },
+        onSuccess: async (res) => {
+            const role = await getItem("role");
+            navigate("Success", { role: role })
+        },
+        onError: async (err) => {
+            console.log("Error: ", err.response.data);
         }
     })
 }

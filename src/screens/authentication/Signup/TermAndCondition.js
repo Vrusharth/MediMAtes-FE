@@ -3,7 +3,7 @@ import React from 'react'
 import Status from '../../../components/Status'
 import Header from '../../../components/Header'
 import { colorTheme, common_styles } from '../../../constant'
-import BigButton from '../../../components/Inputs/BigButton'
+import BigButton from '../../../components/Buttons/BigButton'
 import Divider from '../../../components/Divider'
 import { TremAndCOnditionData } from '../../../assets/Data/TremAndConditionData'
 

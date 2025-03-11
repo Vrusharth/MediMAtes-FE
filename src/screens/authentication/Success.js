@@ -2,17 +2,21 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { colorTheme } from '../../constant';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Header from '../../components/Header';
 import LottieView from 'lottie-react-native';
 import Status from '../../components/Status';
-import BigButton from '../../components/Inputs/BigButton';
 
-export default function Success() {
+export default function Success({ route, navigation }) {
   const confettiRef = useRef(null);
+
+  const { role } = route.params;
 
   useEffect(() => {
     triggerConfetti();
-  }, []);
+    setTimeout(async () => {
+      role === 'patient' ? navigation.navigate('DoctorNavigator') : navigation.navigate('DoctorNavigator');
+    }, 4000);
+  }, [])
+
 
   function triggerConfetti() {
     confettiRef.current.play(0);
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 10, height: 1 },
     shadowOpacity: 0.8,
-    shadowRadius: 2,   
+    shadowRadius: 2,
     elevation: 5
   },
   congratsText: {

@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { colorTheme, common_styles } from '../../../constant';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import FullCarousel from '../../../components/Carousel/FullCarousel';
-import BigButton from '../../../components/Inputs/BigButton';
+import BigButton from '../../../components/Buttons/BigButton';
 import { GetStartedCarouselData } from '../../../assets/Data/AuthData';
 import Status from '../../../components/Status';
+import { removeItem } from '../../../utils/asyncstorage';
 
 export default function GetStarted() {
     const navigation = useNavigation();
@@ -48,21 +49,21 @@ export default function GetStarted() {
                 />
             </View>
             <View style={{ flex: 0.4, justifyContent: 'center', gap: 20, backgroundColor: colorTheme.primaryColor, paddingHorizontal: 30, }}>
-                <Text style={[common_styles.large_text_normal_weight, { color: 'white' }]}>Let's Get Started! Enter Your Mobile Number or Email</Text>
-               <BigButton 
-                IconCategory={MaterialCommunityIcons}
-                iconName={'email'}
-                label={'Signup with email'}
-                navigateTo={'SignUpNavigator'}
-                style={{padding:5}}
-               />
-                <BigButton 
-                IconCategory={MaterialCommunityIcons}
-                iconName={'login'}
-                label={'Login to your account'}
-                navigateTo={'LoginNavigator'}
-                style={{padding:5}}
-               />
+                <Text onPress={() => { removeItem("user") }} style={[common_styles.large_text_normal_weight, { color: 'white' }]}>Let's Get Started! Enter Your Mobile Number or Email</Text>
+                <BigButton
+                    IconCategory={MaterialCommunityIcons}
+                    iconName={'login'}
+                    label={'Login to your account'}
+                    navigateTo={'LoginNavigator'}
+                    style={{ padding: 5 }}
+                />
+                <BigButton
+                    IconCategory={MaterialCommunityIcons}
+                    iconName={'email'}
+                    label={'Signup with email'}
+                    navigateTo={'SignUpNavigator'}
+                    style={{ padding: 5 }}
+                />
             </View>
         </View>
     );

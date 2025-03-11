@@ -9,7 +9,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import Status from '../../components/Status';
 import { colorTheme } from '../../constant';
-import BigButton from '../../components/Inputs/BigButton';
+import BigButton from '../../components/Buttons/BigButton';
 import { useRoute } from '@react-navigation/native';
 import { useVerifyOtp } from '../../Hooks/auth';
 import FailAlert from '../../components/Alert/FailAlert';
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 5,
+        backgroundColor:colorTheme.lightappBackGroundColor
     },
     subContainer: {
         width: '90%',

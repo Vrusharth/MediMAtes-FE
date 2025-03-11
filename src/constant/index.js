@@ -6,8 +6,9 @@ const colorTheme = {
     textColor: "#333333",
     borderColor: "#d3d2d6",
     iconLightBackGroundColor: "black",
-    iconWithBlueBackGround: "#5c9cf7",
-    appcommonfont: 'Quicksand-VariableFont_wght'
+    iconWithBlueBackGround: "#b4defa",
+    appcommonfont: 'Quicksand-VariableFont_wght',
+    lightTextColor:'#8e9194'
 }
 
 const API_URL = 'https://medimatebackend.onrender.com/api'

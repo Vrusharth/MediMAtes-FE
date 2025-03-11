@@ -3,7 +3,7 @@ import React from 'react'
 import { colorTheme, common_styles } from '../../../constant';
 import Header from '../../../components/Header';
 import NormalTextInputWithIcon from '../../../components/Inputs/NormalTextInputWithIcon';
-import BigButton from '../../../components/Inputs/BigButton';
+import BigButton from '../../../components/Buttons/BigButton';
 import Status from '../../../components/Status';
 
 export default function SetPassword() {

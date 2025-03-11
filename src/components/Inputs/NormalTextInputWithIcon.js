@@ -45,14 +45,15 @@ export default function NormalTextInputWithIcon({
     }, [value]);
 
     const handleChange = (text) => {
+        if (onChangeFunc) {
+            onChangeFunc(text);
+            return;
+        }
         setTypingStarted(true); // User started typing
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: text,
         }));
-        if (onChangeFunc) {
-            onChangeFunc(text);
-        }
     };
 
     const handleBlur = () => {

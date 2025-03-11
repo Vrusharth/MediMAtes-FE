@@ -1,4 +1,4 @@
-import {  StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React, { useEffect } from 'react'
 import LottieView from 'lottie-react-native'
 import Status from '../components/Status';
@@ -8,7 +8,15 @@ export default function Splash({ navigation }) {
   useEffect(() => {
     setTimeout(async () => {
       const userToken = await getItem('user');
-      navigation.navigate('GetStarted')
+      const role = await getItem('role');
+      if (userToken) {
+        if (role === 'patient')
+          navigation.navigate('DoctorNavigator')
+        else
+          navigation.navigate('DoctorNavigator')
+      } else {
+        navigation.navigate('GetStarted')
+      }
     }, 4000);
   }, [])
 
