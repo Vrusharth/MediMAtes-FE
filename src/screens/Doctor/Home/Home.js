@@ -4,7 +4,7 @@ import { colorTheme, common_styles } from '../../../constant';
 import IconButton from '../../../components/Buttons/IconButton';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BigButton from '../../../components/Buttons/BigButton';
-import { removeItem } from '../../../utils/asyncstorage';
+import { getItem, removeItem } from '../../../utils/asyncstorage';
 
 export default function Home() {
   return (

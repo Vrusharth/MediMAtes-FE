@@ -11,7 +11,7 @@ export default function Splash({ navigation }) {
       const role = await getItem('role');
       if (userToken) {
         if (role === 'patient')
-          navigation.navigate('DoctorNavigator')
+          navigation.navigate('PatentNavigator')
         else
           navigation.navigate('DoctorNavigator')
       } else {

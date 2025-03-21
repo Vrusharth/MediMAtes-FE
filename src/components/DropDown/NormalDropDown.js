@@ -12,7 +12,7 @@ const debounce = (func, delay) => {
     };
 };
 
-const NormalDropDown = ({ placeholder, data, setFormValues, name, value, validationFunc, onChange, isInputArray }) => {
+const NormalDropDown = ({ placeholder, data, setFormValues, name, value, validationFunc, onChange, isInputArray, disabled = false, }) => {
     const [isFocus, setIsFocus] = useState(false);
     const [error, setError] = useState('');
     const [typingStarted, setTypingStarted] = useState(false);
@@ -32,6 +32,7 @@ const NormalDropDown = ({ placeholder, data, setFormValues, name, value, validat
     }, [value]);
 
     const handleChange = (item) => {
+        if (disabled) return; // Do nothing if disabled
         setTypingStarted(true); // User started interacting
 
         // If a custom onChange function is provided, call it and skip the internal logic
@@ -51,6 +52,7 @@ const NormalDropDown = ({ placeholder, data, setFormValues, name, value, validat
     };
 
     const handleBlur = () => {
+        if (disabled) return; // Do nothing if disabled
         setTypingStarted(false); // Reset typing state
         if (validationFunc) {
             const validationError = validationFunc(value);
@@ -61,8 +63,8 @@ const NormalDropDown = ({ placeholder, data, setFormValues, name, value, validat
     const renderLabel = () => {
         if (value || isFocus) {
             return (
-                <Text style={[styles.label, common_styles.small_text_normal_weight]}>
-                    {typeof isInputArray === 'array' ? (value.length !== 0 ? value[value.length - 1] : placeholder) : (value ? value : placeholder)}
+                <Text style={[styles.label, common_styles.small_text_normal_weight, disabled && styles.disabledLabel]}>
+                    {(value.length !== 0 ? value[value.length - 1] : placeholder)}
                 </Text>
             );
         }
@@ -71,11 +73,11 @@ const NormalDropDown = ({ placeholder, data, setFormValues, name, value, validat
 
     return (
         <View style={styles.container}>
-            {renderLabel()}
+            {isInputArray && renderLabel()}
             <Dropdown
-                style={[styles.dropdown, { borderColor: error === '' ? colorTheme.borderColor : 'red' }]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
+                style={[styles.dropdown, { borderColor: error === '' ? colorTheme.borderColor : 'red' }, disabled && styles.disabledDropdown,]}
+                placeholderStyle={[styles.placeholderStyle, disabled && styles.disabledPlaceholder]}
+                selectedTextStyle={[styles.selectedTextStyle, disabled && styles.disabledText]}
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
                 data={data}
@@ -86,12 +88,15 @@ const NormalDropDown = ({ placeholder, data, setFormValues, name, value, validat
                 labelField="label"
                 valueField="value"
                 searchField="search"
-                placeholder={!isFocus ? '' : '...'}
+                placeholder={!isFocus ? "Select" : '...'}
                 searchPlaceholder="Search..."
                 value={value}
-                onFocus={() => setIsFocus(true)}
+                onFocus={() => {
+                    if (!disabled) setIsFocus(true); // Only focus if not disabled
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
+                disable={disabled} 
             />
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
         </View>
@@ -136,5 +141,18 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 12,
         marginLeft: 5,
+    },
+    disabledDropdown: {
+        backgroundColor: colorTheme.borderColor, // Light gray background for disabled state
+        borderColor: 'black', // Light gray border for disabled state
+    },
+    disabledPlaceholder: {
+        color: '#a9a9a9', // Gray placeholder text for disabled state
+    },
+    disabledText: {
+        color: '#a9a9a9', // Gray selected text for disabled state
+    },
+    disabledLabel: {
+        color: '#a9a9a9', // Gray label text for disabled state
     },
 });

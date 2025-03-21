@@ -39,6 +39,32 @@ export const verify_doctor_otp = (email, password, otp) => apiDoctor.post(`/veri
 export const doctor_additional_info = (form, token) => apiDoctor.post(`/saveadditionalinfo`, form, {
     headers: {
         'Content-Type': 'multipart/form-data', // This is required to send form data with files
-        'auth-token': token
+        'auth-token': `${token}`
+    },
+});
+
+export const doctor_account_settings = (body, token) => apiDoctor.post(`/saveappointmentdetails`, body, {
+    headers: {
+        'auth-token': `${token}`
+    },
+});
+
+export const patient_additional_info = (form, token) => api.post(`/savepatientsdetails`, form, {
+    headers: {
+        'Content-Type': 'multipart/form-data', // This is required to send form data with files
+        'auth-token': `${token}`
+    },
+});
+
+export const patient_medical_history = (body, token) => api.post(`/savepasthistory`, body, {
+    headers: {
+        'auth-token': `${token}`
+    },
+});
+
+export const patient_health_report = (form, token) => api.post(`/savehealthreports`, form, {
+    headers: {
+        'Content-Type': 'multipart/form-data', // This is required to send form data with files
+        'auth-token': `${token}`
     },
 });

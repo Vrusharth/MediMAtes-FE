@@ -5,7 +5,7 @@ import BigButton from '../Buttons/BigButton';
 import { colorTheme } from '../../constant';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const DateTimeInput = ({ mode = 'date', onChangeValue }) => {
+const DateTimeInput = ({ mode = 'date', onChangeValue, disabled = false,title }) => {
     const [show, setShow] = useState(false);
     const [date, setDate] = useState("");
 
@@ -21,12 +21,15 @@ const DateTimeInput = ({ mode = 'date', onChangeValue }) => {
         <View>
             <BigButton
                 label={date !== "" ? new Date(date).toISOString().split("T")[0] : `Pick ${mode}`}
-                onPress={() => setShow(true)}
-                style={{ borderWidth: 1, borderColor: colorTheme.borderColor }}
+                onPress={() => {
+                    if (!disabled) setShow(true); // Only show picker if not disabled
+                }}
+                style={{ borderWidth: 1, borderColor: colorTheme.borderColor, backgroundColor: disabled ? colorTheme.borderColor : 'transparent', }}
                 IconCategory={MaterialCommunityIcons}
-                iconColor={colorTheme.primaryColor}
+                iconColor={disabled ? colorTheme.iconLightBackGroundColor : colorTheme.primaryColor}
                 iconSize={20}
                 iconName={'calendar-month'}
+            // disabled={disabled}
             />
             {show && (
                 <DateTimePicker

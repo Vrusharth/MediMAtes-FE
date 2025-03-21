@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView, Platform } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Platform } from 'react-native';
 import React, { useState } from 'react';
 import Header from '../../components/Header';
 import {

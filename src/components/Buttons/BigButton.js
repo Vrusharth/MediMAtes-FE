@@ -44,9 +44,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     // width: '100%', // Adjust as needed for full-width button
     justifyContent: 'center',
+    gap:10
   },
   iconContainer: {
-    marginRight: 10,
+    // marginRight: 10,
   },
   label: {
     fontSize: 16,

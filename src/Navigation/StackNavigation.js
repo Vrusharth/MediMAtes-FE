@@ -10,7 +10,11 @@ import VerificationCode from '../screens/authentication/VerificationCode'
 import Success from '../screens/authentication/Success'
 import DoctorNavigator from './DoctorNavigation'
 import CompleteDoctorProfile from '../screens/authentication/CompleteProfile/DoctorProfile/CompleteDoctorProfile'
-import CompletePatientProfile from '../screens/authentication/CompleteProfile/CompletePatientProfile'
+import DoctorAccountSetting from '../screens/authentication/CompleteProfile/DoctorProfile/DoctorAccountSetting'
+import CompletePatientProfile from '../screens/authentication/CompleteProfile/PatientProfile/CompletePatientProfile'
+import PatientPastMedicalHistory from '../screens/authentication/CompleteProfile/PatientProfile/PatientPastMedicalHistory'
+import PatientHealthReport from '../screens/authentication/CompleteProfile/PatientProfile/PatientHealthReport'
+import PatentNavigator from './PatentNavigation'
 
 export default function StackNavigation() {
     const Stack = createNativeStackNavigator()
@@ -23,8 +27,12 @@ export default function StackNavigation() {
             <Stack.Screen name='VerificationCode' component={VerificationCode} options={{ headerShown: false }} />
             <Stack.Screen name='Success' component={Success} options={{ headerShown: false }} />
             <Stack.Screen name='CompleteDoctorProfile' component={CompleteDoctorProfile} options={{ headerShown: false }} />
+            <Stack.Screen name='DoctorAccountSetting' component={DoctorAccountSetting} options={{ headerShown: false }} />
             <Stack.Screen name='CompletePatientProfile' component={CompletePatientProfile} options={{ headerShown: false }} />
+            <Stack.Screen name='PatientPastMedicalHistory' component={PatientPastMedicalHistory} options={{ headerShown: false }} />
+            <Stack.Screen name='PatientHealthReport' component={PatientHealthReport} options={{ headerShown: false }} />
             <Stack.Screen name='DoctorNavigator' component={DoctorNavigator} options={{ headerShown: false }} />
+            <Stack.Screen name='PatentNavigator' component={PatentNavigator} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
