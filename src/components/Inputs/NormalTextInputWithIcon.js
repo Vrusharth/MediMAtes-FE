@@ -24,7 +24,8 @@ export default function NormalTextInputWithIcon({
     setFormValues,
     name,
     value,
-    validationFunc
+    validationFunc,
+    disabled = false
 }) {
     const [secureText, setSecureText] = useState(secureTextEntry);
     const [error, setError] = useState('');
@@ -45,6 +46,7 @@ export default function NormalTextInputWithIcon({
     }, [value]);
 
     const handleChange = (text) => {
+        if (disabled) return; // Do nothing if disabled
         if (onChangeFunc) {
             onChangeFunc(text);
             return;
@@ -57,6 +59,7 @@ export default function NormalTextInputWithIcon({
     };
 
     const handleBlur = () => {
+        if (disabled) return; // Do nothing if disabled
         setTypingStarted(false); // Reset typing state
         if (validationFunc) {
             const validationError = validationFunc(value);
@@ -66,34 +69,36 @@ export default function NormalTextInputWithIcon({
 
     return (
         <>
-            <View style={[styles.viewStyle, style,{borderColor:error===''?colorTheme.borderColor:'red'}]}>
+            <View style={[styles.viewStyle, style, { borderColor: error === '' ? colorTheme.borderColor : 'red' }, disabled && styles.disabledView,]}>
                 {icon && (
                     <MaterialCommunityIcons
                         name={icon}
                         size={25}
-                        color={colorTheme.textColor}
+                        color={disabled ? '#a9a9a9' : colorTheme.textColor}
                     />
                 )}
                 {divider && <View style={styles.divider} />}
                 <TextInput
                     placeholder={placeholder || ''}
                     inputMode={inputMode || 'text'}
-                    style={[styles.textInput, textInputStyle]}
+                    style={[styles.textInput, textInputStyle, disabled && styles.disabledTextInput,]}
                     value={value}
                     onChangeText={handleChange}
                     secureTextEntry={secureText}
                     onBlur={handleBlur}
+                    editable={!disabled} // Disable TextInput if disabled is true
+                    selectTextOnFocus={!disabled} // Prevent text selection if disabled
                 />
                 {secureTextEntry && (
                     <MaterialCommunityIcons
                         name={secureText ? 'eye-outline' : 'eye-off-outline'}
                         size={20}
-                        color={colorTheme.textColor}
-                        onPress={() => setSecureText((prev) => !prev)}
+                        color={disabled ? '#a9a9a9' : colorTheme.textColor}
+                        onPress={disabled ? null : () => setSecureText((prev) => !prev)} // Disable icon press if disabled
                     />
                 )}
             </View>
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+            {!disabled && error ? <Text style={styles.errorText}>{error}</Text> : null}
         </>
     );
 }
@@ -121,5 +126,12 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 12,
         marginLeft: 5,
-    }
+    },
+    disabledView: {
+        backgroundColor: colorTheme.borderColor, // Background color for disabled state
+        borderColor: "gray", // Border color for disabled state
+    },
+    disabledTextInput: {
+        color: colorTheme.textColor, // Text color for disabled state
+    },
 });

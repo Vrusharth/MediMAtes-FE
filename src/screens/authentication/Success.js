@@ -13,7 +13,7 @@ export default function Success({ route, navigation }) {
   useEffect(() => {
     triggerConfetti();
     setTimeout(async () => {
-      role === 'patient' ? navigation.navigate('DoctorNavigator') : navigation.navigate('DoctorNavigator');
+      role === 'patient' ? navigation.navigate('PatentNavigator') : navigation.navigate('DoctorNavigator');
     }, 4000);
   }, [])
 

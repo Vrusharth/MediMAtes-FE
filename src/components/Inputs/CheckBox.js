@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colorTheme } from "../../constant";
+import { colorTheme, common_styles } from "../../constant";
 import { navigate } from "../../utils/navRef";
 
 const CheckBox = ({ isChecked, onPress, title, style, titleStyle, navigateTitle }) => {
@@ -9,7 +9,7 @@ const CheckBox = ({ isChecked, onPress, title, style, titleStyle, navigateTitle 
     const iconName = isChecked ? "checkbox-marked" : "checkbox-blank-outline";
 
     function handleNavigate(params) {
-        if(navigateTitle){
+        if (navigateTitle) {
             navigate(navigateTitle)
         }
     }
@@ -19,7 +19,7 @@ const CheckBox = ({ isChecked, onPress, title, style, titleStyle, navigateTitle 
             <Pressable onPress={onPress}>
                 <MaterialCommunityIcons name={iconName} size={24} color={colorTheme.textColor} />
             </Pressable>
-            <Text onPress={handleNavigate} style={[styles.title, titleStyle]}>{title}</Text>
+            {title && <Text onPress={handleNavigate} style={[common_styles.large_text_normal_weight, styles.title, titleStyle]}>{title}</Text>}
         </View>
     );
 };

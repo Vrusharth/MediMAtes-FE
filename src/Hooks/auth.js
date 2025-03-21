@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { create_doctor, create_user, doctor_additional_info, login, verify_doctor_otp, verify_user_otp } from "../services/auth";
+import { create_doctor, create_user, doctor_additional_info, login, patient_additional_info, patient_health_report, patient_medical_history, verify_doctor_otp, verify_user_otp } from "../services/auth";
 import { useUser } from "../Context/UserContext";
 import { getItem, setItem } from "../utils/asyncstorage";
 import { navigate } from "../utils/navRef";
@@ -60,6 +60,69 @@ export const useDoctorAdditionalInfo = () => {
         mutationFn: async ({ form }) => {
             const token = await getItem("user");
             return doctor_additional_info(form, token);
+        },
+        onSuccess: async (res) => {
+            navigate("DoctorAccountSetting")
+        },
+        onError: async (err) => {
+            console.log("Error: ", err.response.data);
+        }
+    })
+}
+
+export const useDoctorAccountSettings = () => {
+    return useMutation({
+        mutationFn: async ({ body }) => {
+            console.log(body);
+            const token = await getItem("user");
+            return doctor_additional_info(body, token);
+        },
+        onSuccess: async (res) => {
+            const role = await getItem("role");
+            navigate("Success", { role: role })
+        },
+        onError: async (err) => {
+            console.log("Error: ", err.response.data);
+        }
+    })
+}
+
+export const usePatientAdditionalInfo = () => {
+    return useMutation({
+        mutationFn: async ({ form }) => {
+            const token = await getItem("user");
+
+            return patient_additional_info(form, token);
+        },
+        onSuccess: async (res) => {
+            navigate("PatientPastMedicalHistory")
+        },
+        onError: async (err) => {
+            console.log("Error: ", err.response.data);
+        }
+    })
+}
+
+export const usePatientMedicalHistory = () => {
+    return useMutation({
+        mutationFn: async ({ body }) => {
+            const token = await getItem("user");
+            return patient_medical_history(body, token);
+        },
+        onSuccess: async (res) => {
+            navigate("PatientHealthReport")
+        },
+        onError: async (err) => {
+            console.log("Error: ", err.response.data);
+        }
+    })
+}
+
+export const usePatientHealthReport = () => {
+    return useMutation({
+        mutationFn: async ({ form }) => {
+            const token = await getItem("user");
+            return patient_health_report(form, token);
         },
         onSuccess: async (res) => {
             const role = await getItem("role");
