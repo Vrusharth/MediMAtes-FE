@@ -27,11 +27,12 @@ export const useLogin = () => {
             return login(email, password)
         },
         onSuccess: async (res) => {
-            const token = res.data.jwtdata;
+            const token = res.data.jwtData;
             const role = res.data.role;
             setUser(token);
             await setItem("user", token);
-            await setItem("role", token);
+            await setItem("role", role);
+            
             navigate("Success", { role: role })
         },
     })
@@ -44,8 +45,8 @@ export const useVerifyOtp = (isDoctor) => {
             return isDoctor ? verify_doctor_otp(email, password, otp) : verify_user_otp(email, password, otp)
         },
         onSuccess: async (res) => {
-            setUser(res.data.jwtdata);
-            await setItem("user", res.data.jwtdata);
+            setUser(res.data.jwtData);
+            await setItem("user", res.data.jwtData);
             await setItem("role", res.data.role);
             res.data.role === 'patient' ? navigate('CompletePatientProfile') : navigate('CompleteDoctorProfile');
         },

@@ -7,6 +7,7 @@ const colorTheme = {
     borderColor: "#d3d2d6",
     iconLightBackGroundColor: "black",
     iconWithBlueBackGround: "#b4defa",
+    iconBg:'#ededed',
     appcommonfont: 'Quicksand-VariableFont_wght',
     lightTextColor:'#8e9194'
 }
