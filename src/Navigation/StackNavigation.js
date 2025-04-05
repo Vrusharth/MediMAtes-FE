@@ -14,7 +14,7 @@ import DoctorAccountSetting from '../screens/authentication/CompleteProfile/Doct
 import CompletePatientProfile from '../screens/authentication/CompleteProfile/PatientProfile/CompletePatientProfile'
 import PatientPastMedicalHistory from '../screens/authentication/CompleteProfile/PatientProfile/PatientPastMedicalHistory'
 import PatientHealthReport from '../screens/authentication/CompleteProfile/PatientProfile/PatientHealthReport'
-import PatentNavigator from './PatentNavigation'
+import PatientStackNavigation from './PatentStackNavigation'
 
 export default function StackNavigation() {
     const Stack = createNativeStackNavigator()
@@ -32,7 +32,7 @@ export default function StackNavigation() {
             <Stack.Screen name='PatientPastMedicalHistory' component={PatientPastMedicalHistory} options={{ headerShown: false }} />
             <Stack.Screen name='PatientHealthReport' component={PatientHealthReport} options={{ headerShown: false }} />
             <Stack.Screen name='DoctorNavigator' component={DoctorNavigator} options={{ headerShown: false }} />
-            <Stack.Screen name='PatentNavigator' component={PatentNavigator} options={{ headerShown: false }} />
+            <Stack.Screen name='PatientStackNavigation' component={PatientStackNavigation} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

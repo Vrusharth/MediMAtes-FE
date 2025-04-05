@@ -8,11 +8,11 @@ import StackNavigation from './src/Navigation/StackNavigation';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppProviders } from './AppProvider';
 
+
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <GestureHandlerRootView>
       <QueryClientProvider client={queryClient}>
         <AppProviders>
           <NavigationContainer ref={navigationRef}>
@@ -20,6 +20,5 @@ export default function App() {
           </NavigationContainer>
         </AppProviders>
       </QueryClientProvider>
-    </GestureHandlerRootView>
   )
 }
