@@ -8,6 +8,8 @@ import BigButton from '../../components/Buttons/BigButton';
 import Status from '../../components/Status';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Chat from '../../screens/Patient/Chat/Chat';
+import { removeItem } from '../../utils/asyncstorage';
+import { useNavigation } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
@@ -84,9 +86,18 @@ function DrawerView(props) {
 }
 
 function DrawerBottomComponent() {
+    const navigation = useNavigation()
+    function logout(params) {
+        removeItem('user');
+        removeItem('role');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'GetStarted' }],
+        });
+    }
     return (
         <View style={{ marginBlock: 20, }}>
-            <BigButton label={'Logout'} style={{ elevation: 2 }} />
+            <BigButton onPress={() => { logout() }} label={'Logout'} style={{ elevation: 2 }} />
         </View>
     )
 }

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { create_doctor, create_user, doctor_additional_info, login, patient_additional_info, patient_health_report, patient_medical_history, verify_doctor_otp, verify_user_otp } from "../services/auth";
+import { create_doctor, create_user, doctor_account_settings, doctor_additional_info, login, patient_additional_info, patient_health_report, patient_medical_history, verify_doctor_otp, verify_user_otp } from "../services/auth";
 import { useUser } from "../Context/UserContext";
 import { getItem, setItem } from "../utils/asyncstorage";
 import { navigate } from "../utils/navRef";
@@ -45,8 +45,8 @@ export const useVerifyOtp = (isDoctor) => {
             return isDoctor ? verify_doctor_otp(email, password, otp) : verify_user_otp(email, password, otp)
         },
         onSuccess: async (res) => {
-            setUser(res.data.jwtData);
-            await setItem("user", res.data.jwtData);
+            setUser(res.data.jwtdata);
+            await setItem("user", res.data.jwtdata);
             await setItem("role", res.data.role);
             res.data.role === 'patient' ? navigate('CompletePatientProfile') : navigate('CompleteDoctorProfile');
         },
@@ -74,9 +74,8 @@ export const useDoctorAdditionalInfo = () => {
 export const useDoctorAccountSettings = () => {
     return useMutation({
         mutationFn: async ({ body }) => {
-            console.log(body);
             const token = await getItem("user");
-            return doctor_additional_info(body, token);
+            return doctor_account_settings(body, token);
         },
         onSuccess: async (res) => {
             const role = await getItem("role");

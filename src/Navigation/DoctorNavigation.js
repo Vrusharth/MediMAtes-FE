@@ -12,6 +12,8 @@ import Wallet from '../screens/Doctor/Wallet/Wallet';
 import Chat from '../screens/Doctor/Chat/Chat';
 import BigButton from '../components/Buttons/BigButton';
 import Appointment from '../screens/Doctor/Appointments/Appointment';
+import { useNavigation } from '@react-navigation/native';
+import { removeItem } from '../utils/asyncstorage';
 
 const Drawer = createDrawerNavigator();
 
@@ -128,9 +130,18 @@ function DrawerView(props) {
 }
 
 function DrawerBottomComponent() {
+    const navigation = useNavigation()
+    function logout(params) {
+        removeItem('user');
+        removeItem('role');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'GetStarted' }],
+        });
+    }
     return (
-        <View style={{marginBlock:20,}}>
-            <BigButton label={'Logout'} style={{ elevation: 2 }} />
+        <View style={{ marginBlock: 20, }}>
+            <BigButton label={'Logout'} onPress={logout} style={{ elevation: 2 }} />
         </View>
     )
 }

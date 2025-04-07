@@ -45,6 +45,7 @@ export const doctor_additional_info = (form, token) => apiDoctor.post(`/saveaddi
 
 export const doctor_account_settings = (body, token) => apiDoctor.post(`/saveappointmentdetails`, body, {
     headers: {
+        'Content-Type': 'application/json',
         'auth-token': `${token}`
     },
 });

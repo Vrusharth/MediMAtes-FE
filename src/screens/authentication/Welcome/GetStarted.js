@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { Alert, BackHandler, Platform, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback } from 'react';
 import { colorTheme, common_styles } from '../../../constant';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -9,9 +9,32 @@ import BigButton from '../../../components/Buttons/BigButton';
 import { GetStartedCarouselData } from '../../../assets/Data/AuthData';
 import Status from '../../../components/Status';
 import { removeItem } from '../../../utils/asyncstorage';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function GetStarted() {
-    const navigation = useNavigation();
+    useFocusEffect(
+        useCallback(() => {
+            const backAction = () => {
+                Alert.alert(
+                    'Exit App',
+                    'Do you really want to quit?',
+                    [
+                        { text: 'Cancel', style: 'cancel' },
+                        {
+                            text: 'Yes',
+                            style: 'destructive',
+                            onPress: () => BackHandler.exitApp(),
+                        },
+                    ]
+                );
+                return true;
+            };
+
+            const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+            return () => backHandler.remove(); // Cleanup only when screen loses focus
+        }, [])
+    );
 
     const SampleComponent = ({ index, data }) => (
         <View style={{ flex: 1, alignItems: 'center', paddingVertical: 30, justifyContent: 'space-between', paddingInline: 30 }}>

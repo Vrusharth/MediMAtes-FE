@@ -25,7 +25,10 @@ export default function NormalTextInputWithIcon({
     name,
     value,
     validationFunc,
-    disabled = false
+    disabled = false,
+    rightIcon,
+    enterKeyHint,
+    submitEdit
 }) {
     const [secureText, setSecureText] = useState(secureTextEntry);
     const [error, setError] = useState('');
@@ -44,6 +47,13 @@ export default function NormalTextInputWithIcon({
             debouncedValidation(value);
         }
     }, [value]);
+
+    function onSubmitEdit() {
+        if (submitEdit) {
+            submitEdit();
+            return;
+        }
+    }
 
     const handleChange = (text) => {
         if (disabled) return; // Do nothing if disabled
@@ -88,6 +98,8 @@ export default function NormalTextInputWithIcon({
                     onBlur={handleBlur}
                     editable={!disabled} // Disable TextInput if disabled is true
                     selectTextOnFocus={!disabled} // Prevent text selection if disabled
+                    enterKeyHint={enterKeyHint || 'done'}
+                    onSubmitEditing={onSubmitEdit}
                 />
                 {secureTextEntry && (
                     <MaterialCommunityIcons
@@ -95,6 +107,13 @@ export default function NormalTextInputWithIcon({
                         size={20}
                         color={disabled ? '#a9a9a9' : colorTheme.textColor}
                         onPress={disabled ? null : () => setSecureText((prev) => !prev)} // Disable icon press if disabled
+                    />
+                )}
+                {rightIcon && (
+                    <MaterialCommunityIcons
+                        name={rightIcon}
+                        size={25}
+                        color={disabled ? '#a9a9a9' : colorTheme.textColor}
                     />
                 )}
             </View>

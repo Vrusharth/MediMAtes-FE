@@ -20,7 +20,6 @@ export default function Home() {
               }}>
               <View>
                 <Text
-                  onPress={() => { removeItem("user") }}
                   style={[
                     common_styles.extra_large_text_large_weight,
                     { color: 'white', fontSize: 25 },
