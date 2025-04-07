@@ -18,7 +18,8 @@ const FullCarousel = ({
   componentWidth = 0, // Default is 0 for full width
   loop = true,
   dynamicHeight,
-  style
+  style,
+  dotCenter
 }) => {
   const [isFast, setIsFast] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0); // Track current index
@@ -57,16 +58,16 @@ const FullCarousel = ({
       />
 
       {/* Dot Indicator */}
-        <View style={styles.dotContainer}>
-          {data.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.dot,
-                currentIndex === index && styles.activeDot, // Apply active dot style
-              ]}
-            />
-          ))}
+      <View style={[dotCenter ? styles.dotContainer2 : styles.dotContainer]}>
+        {data.map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.dot,
+              currentIndex === index && styles.activeDot, // Apply active dot 
+            ]}
+          />
+        ))}
       </View>
     </View>
   );
@@ -79,7 +80,15 @@ const styles = StyleSheet.create({
     left: '15%',
     transform: [{ translateX: '-50%' }],
     flexDirection: 'row',
-    alignItems:'center'
+    alignItems: 'center'
+  },
+  dotContainer2: {
+    position: 'absolute',
+    bottom: 10,
+    left: 0, right: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   dot: {
     width: 8,

@@ -20,7 +20,7 @@ const DateTimeInput = ({ mode = 'date', onChangeValue, disabled = false,title })
     return (
         <View>
             <BigButton
-                label={date !== "" ? new Date(date).toISOString().split("T")[0] : `Pick ${mode}`}
+                label={date !== "" ? (mode=='date'? new Date(date).toISOString().split("T")[0] :new Date(date).toTimeString().split(" GMT")[0]): `Pick ${mode}`}
                 onPress={() => {
                     if (!disabled) setShow(true); // Only show picker if not disabled
                 }}
@@ -28,7 +28,7 @@ const DateTimeInput = ({ mode = 'date', onChangeValue, disabled = false,title })
                 IconCategory={MaterialCommunityIcons}
                 iconColor={disabled ? colorTheme.iconLightBackGroundColor : colorTheme.primaryColor}
                 iconSize={20}
-                iconName={'calendar-month'}
+                iconName={mode==='date'?'calendar-month':'clock'}
             // disabled={disabled}
             />
             {show && (

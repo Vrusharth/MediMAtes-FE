@@ -4,9 +4,10 @@ import React from 'react'
 export default function Status() {
     return (
         <StatusBar
-            barStyle="light-content"
+            barStyle="dark-content"
             backgroundColor="transparent"
             translucent={true}
+            // hidden
         />
     )
 }

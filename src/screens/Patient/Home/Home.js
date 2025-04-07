@@ -7,9 +7,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconButton from '../../../components/Buttons/IconButton'
 import { useNavigation } from '@react-navigation/native'
-import { removeItem } from '../../../utils/asyncstorage'
 import StackedCarousel from '../../../components/Carousel/StackedCarousel'
 import Underline from '../../../components/Underline'
+import UpcomingAppointmentCard from '../../../components/Card/UpcomingAppointmentCard'
 
 export default function Home() {
   const navigation = useNavigation();
@@ -68,7 +68,7 @@ export default function Home() {
               </View>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-              <IconButton onPress={() => { removeItem("user") }} IconCategory={MaterialIcons} color={colorTheme.primaryColor} iconName={'videocam'} size={25} />
+              <IconButton IconCategory={MaterialIcons} color={colorTheme.primaryColor} iconName={'videocam'} size={25} />
               <IconButton onPress={() => navigation.navigate("Chat")} IconCategory={MaterialIcons} color={colorTheme.primaryColor} iconName={'wechat'} size={25} />
             </View>
           </View>
@@ -83,8 +83,9 @@ export default function Home() {
               iconSize={20}
               style={{ backgroundColor: colorTheme.iconBg, borderRadius: 15, width: '85%', justifyContent: '' }}
               label={"Search a doctor ..."}
+              onPress={()=>{navigation.navigate('Search')}}
             />
-            <IconButton onPress={() => { removeItem("user") }} IconCategory={Ionicons} color={colorTheme.primaryColor} iconName={'mic'} size={30} style={{ borderRadius: 10 }} />
+            <IconButton  IconCategory={Ionicons} color={colorTheme.primaryColor} iconName={'mic'} size={30} style={{ borderRadius: 10 }} />
           </View>
           <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30 }}>
@@ -103,47 +104,7 @@ export default function Home() {
 const renderItem = (item) => {
   const navigation = useNavigation();
   return (
-    <View style={{ backgroundColor: colorTheme.primaryColor, padding: 10, borderRadius: 15, width: '100%' }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-          <Image source={require('../../../assets/img/man.png')} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 50 }} />
-          <View>
-            <Text style={[common_styles.large_text_large_weight, { color: 'white' }]}>{item.doctor}</Text>
-            <Text style={[common_styles.small_text_normal_weight, { color: 'white' }]}>{item.specialty}</Text>
-          </View>
-        </View>
-        <IconButton onPress={() => { removeItem("user") }} IconCategory={Ionicons} color={colorTheme.primaryColor} iconName={'videocam-outline'} size={35} />
-      </View>
-
-      <Underline color={'white'} />
-
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
-          <View>
-            <IconButton onPress={() => { removeItem("user") }} IconCategory={MaterialIcons} color={colorTheme.primaryColor} style={{}} iconName={'date-range'} size={20} />
-          </View>
-          <View>
-            <Text style={[common_styles.small_text_small_weight, { color: 'white' }]}>Date</Text>
-            <Text style={[common_styles.small_text_normal_weight, { color: 'white' }]}>{item.date}</Text>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
-          <View>
-            <IconButton onPress={() => { removeItem("user") }} IconCategory={MaterialIcons} color={colorTheme.primaryColor} style={{}} iconName={'timer'} size={20} />
-          </View>
-          <View>
-            <Text style={[common_styles.small_text_small_weight, { color: 'white' }]}>Time</Text>
-            <Text style={[common_styles.small_text_normal_weight, { color: 'white' }]}>{item.time}</Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={{ marginBlock: 15, justifyContent: 'space-between', flexDirection: 'row' }}>
-        <BigButton label={"Re-Schedule"} style={{ backgroundColor: 'white', width: '45%', borderRadius: 30, elevation: 10 }} />
-        <BigButton onPress={() => navigation.navigate('Details')} label={"View Profile"} labelStyle={{ color: 'white' }} style={{ backgroundColor: colorTheme.primaryColor, elevation: 10, width: '45%', borderRadius: 30 }} />
-      </View>
-
-    </View>
+    <UpcomingAppointmentCard item={item} />
   )
 };
 

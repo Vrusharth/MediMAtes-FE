@@ -10,11 +10,11 @@ export default function IconButton({ iconName, size, color, style, IconCategory,
         }
     }
     return (
-            <TouchableOpacity onPress={handlePress} style={{
-                backgroundColor: colorTheme.iconBg, borderRadius: 50, padding: 5, elevation: 3, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', gap: 5, ...style
-            }}>
-                <IconCategory name={iconName} color={color} size={size} />
-                {label && <Text>{label}</Text>}
-            </TouchableOpacity>
+        <TouchableOpacity onPress={handlePress} style={{
+            borderRadius: 50, padding: 5, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', gap: 5, ...style
+        }}>
+            <IconCategory name={iconName} color={color} size={size} />
+            {label && <Text>{label}</Text>}
+        </TouchableOpacity>
     )
 }
